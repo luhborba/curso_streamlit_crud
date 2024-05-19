@@ -22,4 +22,8 @@ mkdocstrings = {extras = ["python"], version = "^0.25.1"}
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.taskipy.task]
+[tool.taskipy.tasks]
+run = 'streamlit run app.py'
+check = 'pydocstyle'
+doc = 'mkdocs serve'
+format = 'black . && isort .'
