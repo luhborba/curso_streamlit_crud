@@ -1,5 +1,6 @@
 """Arquivo de Criação do Formulário de Clientes."""
 
+import pandas as pd
 import streamlit as st
 
 
@@ -30,4 +31,25 @@ def criar_cliente():
             endereco_complemento = st.text_input("Complemento")
             endereco_uf = st.text_input("UF")
 
-        cadastrar = st.form_submit_button()
+        cadastrar = st.form_submit_button("Cadastrar")
+
+        if cadastrar:
+            df = pd.DataFrame(
+                {
+                    "nome": [nome],
+                    "email": [email],
+                    "dt_nascimento": [dt_nascimento],
+                    "cpf": [cpf],
+                    "endereco_rua": [endereco_rua],
+                    "endereco_bairro": [endereco_bairro],
+                    "endereco_cidade": [endereco_cidade],
+                    "endereco_uf": [endereco_uf],
+                    "endereco_complemento": [endereco_complemento],
+                    "endereco_numero": [endereco_numero],
+                    "sexo": [sexo],
+                    "estado_civil": [estado_civil],
+                    "dt_cadastro": pd.Timestamp("now"),
+                }
+            )
+            df.to_csv("data/clientes.csv", mode="a", header=False, index=False)
+            st.success("Cadastro Realizado com Sucesso!!")
