@@ -34,22 +34,25 @@ def criar_cliente():
         cadastrar = st.form_submit_button("Cadastrar")
 
         if cadastrar:
-            df = pd.DataFrame(
-                {
-                    "nome": [nome],
-                    "email": [email],
-                    "dt_nascimento": [dt_nascimento],
-                    "cpf": [cpf],
-                    "endereco_rua": [endereco_rua],
-                    "endereco_bairro": [endereco_bairro],
-                    "endereco_cidade": [endereco_cidade],
-                    "endereco_uf": [endereco_uf],
-                    "endereco_complemento": [endereco_complemento],
-                    "endereco_numero": [endereco_numero],
-                    "sexo": [sexo],
-                    "estado_civil": [estado_civil],
-                    "dt_cadastro": pd.Timestamp("now"),
-                }
-            )
-            df.to_csv("data/clientes.csv", mode="a", header=False, index=False)
+            novo_cliente = {
+                "nome": nome,
+                "email": email,
+                "dt_nascimento": dt_nascimento,
+                "cpf": cpf,
+                "endereco_rua": endereco_rua,
+                "endereco_bairro": endereco_bairro,
+                "endereco_cidade": endereco_cidade,
+                "endereco_uf": endereco_uf,
+                "endereco_complemento": endereco_complemento,
+                "endereco_numero": endereco_numero,
+                "sexo": sexo,
+                "estado_civil": estado_civil,
+                "dt_cadastro": pd.Timestamp("now"),
+            }
+            try:
+                df = pd.read_csv("data/clientes.csv")
+            except FileNotFoundError:
+                df = pd.DataFrame(columns=novo_cliente.keys())
+            df = pd.concat([df, pd.DataFrame([novo_cliente])], ignore_index=True)
+            df.to_csv("data/clientes.csv", index=False)
             st.success("Cadastro Realizado com Sucesso!!")
