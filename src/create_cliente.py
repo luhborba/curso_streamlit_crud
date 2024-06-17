@@ -56,3 +56,4 @@ def criar_cliente():
             df = pd.concat([df, pd.DataFrame([novo_cliente])], ignore_index=True)
             df.to_csv("data/clientes.csv", index=False)
             st.success("Cadastro Realizado com Sucesso!!")
+            st.experimental_rerun()

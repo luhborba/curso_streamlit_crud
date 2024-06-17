@@ -6,5 +6,8 @@ import streamlit as st
 
 def ler_clientes():
     """Leitura dos Clientes."""
-    df = pd.read_csv("data/clientes.csv")
-    st.table(df)
+    try:
+        df = pd.read_csv("data/clientes.csv")
+        st.table(df)
+    except:
+        st.error("Não existem clientes cadastrados.")
