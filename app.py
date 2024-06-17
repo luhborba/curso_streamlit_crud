@@ -3,6 +3,7 @@
 import streamlit as st
 
 from src.create_cliente import criar_cliente
+from src.edit_cliente import editar_clientes
 from src.read_cliente import ler_clientes
 
 
@@ -28,6 +29,7 @@ def main():
 
     with tab4:
         st.header("Editar")
+        editar_clientes()
 
     with tab5:
         st.header("Excluir")
